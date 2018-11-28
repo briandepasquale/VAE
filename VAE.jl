@@ -3,6 +3,18 @@ module VAE
 using TensorFlow, Distributions
 include(Pkg.dir("TensorFlow", "examples", "mnist_loader.jl"))
 
+mutable struct VariationalAutoEncoder
+    sess
+    x
+    z
+    x_hat_μ
+    z_μ
+    z_log_σ2
+    Loss
+    optimizer    
+    loader
+end
+
 function xavier_init(fan_in, fan_out; constant=1) 
     
     low,high = -constant*sqrt(6./(fan_in + fan_out)), constant*sqrt(6./(fan_in + fan_out))
@@ -118,10 +130,11 @@ function trainVAE(network_architecture; learning_rate=0.001,
     x = placeholder(Float32, shape=[nothing, network_architecture["n_input"]])
     x_hat_μ, z_μ, z_log_σ2, z = create_network(network_architecture, x, batch_size)
     Loss, optimizer = create_loss_optimizer(x, x_hat_μ, z_μ, z_log_σ2)
-
+    
     run(sess, global_variables_initializer())
+    
     loader = DataLoader()  
-
+    
     # Training cycle
     for epoch in 1:training_epochs
 
@@ -145,7 +158,9 @@ function trainVAE(network_architecture; learning_rate=0.001,
     
     end
     
-    return sess, x, z, x_hat_μ, z_μ, z_log_σ2
+    vae = VariationalAutoEncoder(sess, x, z, x_hat_μ, z_μ, z_log_σ2, Loss, optimizer, loader)
+        
+    return vae
                 
 end
 
@@ -153,9 +168,9 @@ end
 transform(sess, x, z_μ, X) = run(sess, z_μ, Dict(x => X))
     
 #Generate data by sampling from latent space, drawn from prior in latent space.        
-generate(sess, z, x_hat_μ, nz) = run(sess,x_hat_μ, Dict(z => rand(Normal(0, 1), nz)))
+generate(sess, z, x_hat_μ, nz) = run(sess, x_hat_μ, Dict(z => rand(Normal(0, 1), nz)))
 
 #Use VAE to reconstruct given data.
-reconstruct(sess, x, x_hat_μ, X) = run(sess,x_hat_μ, Dict(x => X))
+reconstruct(sess, x, x_hat_μ, X) = run(sess, x_hat_μ, Dict(x => X))
 
 end
