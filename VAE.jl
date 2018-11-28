@@ -101,7 +101,7 @@ function create_loss_optimizer(x,x_hat_μ,z_μ,z_log_σ2;learning_rate=0.001)
     #     This can be interpreted as the number of "nats" required
     #     for transmitting the the latent space distribution given
     #     the prior.
-    latent_loss = -0.5 * sum(1 + z_log_σ2 - z_μ^2 - exp(z_log_σ2), 2)
+    latent_loss = -0.5 * sum(1 + z_log_σ2 - z_μ.^2 - exp(z_log_σ2), 2)
     
     #Loss = reduce_mean(reconstr_loss + latent_loss, axis=[1])   # average over batch
     Loss = mean(reconstr_loss + latent_loss, 1)   # average over batch
@@ -145,7 +145,7 @@ function trainVAE(network_architecture; learning_rate=0.001,
     
     end
     
-    return sess, x, z, x_hat_μ, z_μ
+    return sess, x, z, x_hat_μ, z_μ, z_log_σ2
                 
 end
 
