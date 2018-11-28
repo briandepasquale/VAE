@@ -165,12 +165,12 @@ function trainVAE(network_architecture; learning_rate=0.001,
 end
 
 #Transform data by mapping it into the latent space
-transform(sess, x, z_μ, X) = run(sess, z_μ, Dict(x => X))
+transform(vae, X) = run(vae.sess, vae.z_μ, Dict(vae.x => X))
     
 #Generate data by sampling from latent space, drawn from prior in latent space.        
-generate(sess, z, x_hat_μ, nz) = run(sess, x_hat_μ, Dict(z => rand(Normal(0, 1), nz)))
+generate(vae, z_mu) = run(vae.sess, vae.x_hat_μ, Dict(vae.z => z_mu))
 
 #Use VAE to reconstruct given data.
-reconstruct(sess, x, x_hat_μ, X) = run(sess, x_hat_μ, Dict(x => X))
+reconstruct(vae, X) = run(vae.sess, vae.x_hat_μ, Dict(vae.x => X))
 
 end
