@@ -1,3 +1,0 @@
-# Documentation
-
-## Blah blah
