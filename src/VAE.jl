@@ -1,7 +1,8 @@
 module VAE
 
-using TensorFlow, Distributions
-include(Pkg.dir("TensorFlow", "examples", "mnist_loader.jl"))
+using TensorFlow, Distributions, Pkg, Printf
+#include(Pkg.dir("TensorFlow", "examples", "mnist_loader.jl"))
+joinpath(dirname(pathof(TensorFlow)), "..", "examples", "mnist_loader.jl")
 
 mutable struct VariationalAutoEncoder
     sess
@@ -17,7 +18,7 @@ end
 
 function xavier_init(fan_in, fan_out; constant=1) 
     
-    low,high = -constant*sqrt(6./(fan_in + fan_out)), constant*sqrt(6./(fan_in + fan_out))
+    low,high = -constant*sqrt(6. /(fan_in + fan_out)), constant*sqrt(6. /(fan_in + fan_out))
     
     return map(Float32, rand(Uniform(low, high), fan_in, fan_out))
     
@@ -164,7 +165,11 @@ function trainVAE(network_architecture; learning_rate=0.001,
                 
 end
 
-#Transform data by mapping it into the latent space
+"""
+    transform(vae,X)
+
+Transform data by mapping it into the latent space
+"""
 transform(vae, X) = run(vae.sess, vae.z_μ, Dict(vae.x => X))
     
 #Generate data by sampling from latent space, drawn from prior in latent space.        
@@ -172,5 +177,19 @@ generate(vae, z_mu) = run(vae.sess, vae.x_hat_μ, Dict(vae.z => z_mu))
 
 #Use VAE to reconstruct given data.
 reconstruct(vae, X) = run(vae.sess, vae.x_hat_μ, Dict(vae.x => X))
+
+"""
+    test(x)
+
+testing
+
+#Examples
+
+```jldoctest
+julia> y = test(2)
+4
+```
+"""
+test(x) = x^2
 
 end
