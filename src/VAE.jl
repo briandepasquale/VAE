@@ -178,18 +178,4 @@ generate(vae, z_mu) = run(vae.sess, vae.x_hat_μ, Dict(vae.z => z_mu))
 #Use VAE to reconstruct given data.
 reconstruct(vae, X) = run(vae.sess, vae.x_hat_μ, Dict(vae.x => X))
 
-"""
-    test(x)
-
-testing
-
-#Examples
-
-```jldoctest
-julia> y = test(2)
-4
-```
-"""
-test(x) = x^2
-
 end
