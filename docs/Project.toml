@@ -1,5 +1,6 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+TensorFlow = "1d978283-2c37-5f34-9a8e-e9c0ece82495"
 
 [compat]
 Documenter = "~0.20"
