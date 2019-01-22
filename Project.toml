@@ -1,0 +1,6 @@
+authors = ["Brian DePasquale <depasquale@princeton.edu>"]
+name = "VAE"
+uuid = "563e5426-1e8d-11e9-1c00-871ef18cc21c"
+version = "0.1.0"
+
+[deps]
