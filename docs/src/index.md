@@ -1,4 +1,4 @@
-# VAE.jl Documentation
+# VAE Documentation
 
 This is a package for implementing VAEs in julia.
 

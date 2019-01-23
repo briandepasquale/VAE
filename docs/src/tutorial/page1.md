@@ -6,4 +6,4 @@ Some text describing this section
  
 ```@docs
 VAE.transform(vae,X)
-`````
+```
