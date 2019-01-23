@@ -8,7 +8,7 @@ makedocs(sitename="VAE", modules=[VAE], doctest=false,
         "Tutorials" => Any[
           "tutorial/page1.md",
           "tutorial/page2.md"
-         ]
+         ],
          "Section2" => Any[
            "sec2/page1.md",
            "sec2/page2.md"
