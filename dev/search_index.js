@@ -17,27 +17,19 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "#My-subtitle-1",
+    "location": "#VAE.transform-Tuple{Any,Any}",
     "page": "VAE.jl Documentation",
-    "title": "My subtitle",
-    "category": "section",
-    "text": "More text"
+    "title": "VAE.transform",
+    "category": "method",
+    "text": "transform(vae,X)\n\nTransform data by mapping it into the latent space\n\n\n\n\n\n"
 },
 
 {
-    "location": "#Tutorials-1",
+    "location": "#Functions-1",
     "page": "VAE.jl Documentation",
-    "title": "Tutorials",
+    "title": "Functions",
     "category": "section",
-    "text": "Pages = [\n    \"tutorials/page1.md\",\n    \"tutorials/page2.md\"\n    ]\nDepth = 2"
-},
-
-{
-    "location": "#Another-Section-1",
-    "page": "VAE.jl Documentation",
-    "title": "Another Section",
-    "category": "section",
-    "text": "Pages = [\n    \"sec2/page1.md\",\n    \"sec2/page2.md\"\n    ]\nDepth = 2"
+    "text": "VAE.transform(vae,X)"
 },
 
 {
