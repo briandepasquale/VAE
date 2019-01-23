@@ -6,6 +6,9 @@ os:
 
 julia:
     - 1.0
+
+notifications:
+  email: false
     
 jobs:
   include:
